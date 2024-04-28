@@ -21,7 +21,6 @@ function Navbar() {
       document.body.classList.remove("dark");
     }
   }, [theme]);
-
   const [sticky, setSticky] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
@@ -36,7 +35,22 @@ function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  console.log(authUser)
+  const[Search,setSearch]=useState("");
+  const handleSearchInputChange = (event) => {
+    const newValue = event.target.value;
+    setSearch(newValue);
+    localStorage.setItem("searchValue", newValue);
+  };
+
+
+  
+const handleKeyDown = (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+  }
+};
+
+  console.log(authUser);
   const navItems = (
     <>
       <li>
@@ -85,7 +99,6 @@ function Navbar() {
                   />
                 </svg>
               </div>
-              
               <ul
                 tabIndex={0}
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
@@ -94,14 +107,13 @@ function Navbar() {
               </ul>
             </div>
             <div
-  className={` rounded-full m-2 bg-gray-200 font-bold text-2xl text-black  text-center p-2 flex items-center justify-center`}
-  style={{ width: '40px', height: '40px' }} // Set specific width and height
->
- {authUser?.fullname?.[0]?.toUpperCase()}
-</div>
+              className={` rounded-full m-2 bg-gray-200 font-bold text-2xl text-black  text-center p-2 flex items-center justify-center`}
+              style={{ width: "40px", height: "40px" }} // Set specific width and height
+            >
+              {authUser?.fullname?.[0]?.toUpperCase()}
+            </div>
             <a className=" text-2xl font-bold cursor-pointer">bookStore</a>
           </div>
-    
 
           <div className="navbar-end space-x-3">
             <div className="navbar-center hidden lg:flex">
@@ -113,6 +125,8 @@ function Navbar() {
                   type="text"
                   className="grow outline-none rounded-md bg-transparent dark:bg-transparent px-1 dark:bg-slate-900 dark:text-white"
                   placeholder="Search"
+                  onKeyDown={handleKeyDown} 
+                  onChange={handleSearchInputChange}
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

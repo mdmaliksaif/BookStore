@@ -6,11 +6,11 @@ const Meet = () => {
   return (
     <>
     <Navbar/>
-     <div className='flex   p-44'>
+     <div className='md:flex   md:p-44 mt-20'>
         {/* left */}
-        <div className='w-1/2'><img src="https://www.shutterstock.com/image-photo/smiling-african-american-customer-care-600nw-2237515137.jpg" alt="" /></div>
+        <div className='md:w-1/2 p-4'><img src="https://www.shutterstock.com/image-photo/smiling-african-american-customer-care-600nw-2237515137.jpg" alt="" /></div>
         {/* right */}
-        <div className='w-1/2 ml-20 relative'>
+        <div className='md:w-1/2 p-4 relative'>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="flex items-center">
         <label htmlFor="firstName" className="mr-2 block text-sm font-medium text-white">

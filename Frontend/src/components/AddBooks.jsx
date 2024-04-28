@@ -39,13 +39,17 @@ const AddBooks = ({ setOpen,getBook }) => {
   };
 
 
+  const [authUser, setAuthUser] = useAuth();
+  const isSimilarEmail = authUser.email.toLowerCase().includes("saifmalik10786@gmail.com");
+
 
   return (
-    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 overflow-auto z-50">
-      <div className="relative mx-auto mt-40 p-4 bg-white rounded-lg shadow-xl">
-        <h5 className="text-xl font-medium leading-tight mb-2 text-center">
+    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 overflow-auto  z-50">
+      <div className="relative mx-auto mt-40 md:w-[500px] bg-white p-4 rounded-lg shadow-xl">
+        <h5 className="text-xl font-bold leading-tight mb-4 text-center text-black">
           Add Your Book
         </h5>
+        <div className='text-black font-bold absolute top-2 right-4 text-3xl' onClick={()=>setOpen(false)}>X</div>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <div className="flex flex-col">
             <label htmlFor="name" className="text-sm font-medium text-gray-700">
@@ -125,12 +129,12 @@ const AddBooks = ({ setOpen,getBook }) => {
             />
           </div>
           <div className="flex justify-center">
-            <button 
+            {isSimilarEmail&&<button 
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Add Book
-            </button>
+            </button>}
           </div>
         </form>
       </div>

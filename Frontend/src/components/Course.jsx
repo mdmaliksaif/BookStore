@@ -5,34 +5,48 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import AddBooks from "./AddBooks";
 import { useAuth } from "../context/AuthProvider";
+import { useBook } from "../context/BookProvider";
+// import { useSearch } from "../context/SearchProvider";
 function Course() {
   const [open, setOpen] = useState(false);
-  const [book, setBook] = useState([]);
+
+  // const [book, setBook] = useState([]);
   
 
-  const getBook = async () => {
-    try {
-      const res = await axios.get("http://localhost:4001/book");
-      console.log(res.data);
-      setBook(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getBook = async () => {
+  //   try {
+  //     const res = await axios.get("http://localhost:4001/book");
+  //     console.log(res.data);
+  //     setBook(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+    
+  //   getBook();
+  // }, []);
+
+  const [book,setBook,getBook] = useBook();
 
   useEffect(() => {
-    
     getBook();
-  }, []);
+  }, [localStorage.getItem("searchValue")]);
 
+  const [authUser, setAuthUser] = useAuth();
+  const isSimilarEmail = authUser.email.toLowerCase().includes("saifmalik10786@gmail.com");
 
 const AddBook=()=>
 {
+  isSimilarEmail
+  ? toast.success("Hello Admin")
+  : toast.error("You Are Not Admin");
   setOpen(true);
-  toast.success("you succesfully clicked add books")
 }
-const [authUser, setAuthUser] = useAuth();
-const isSimilarEmail = authUser.email.toLowerCase().includes("saifmalik10786@gmail.com");
+
+
+
   return (
     <>
       <div className=" max-w-screen-2xl container mx-auto md:px-20 px-4">
@@ -42,7 +56,7 @@ const isSimilarEmail = authUser.email.toLowerCase().includes("saifmalik10786@gma
             <span className="text-pink-500"> Here! :)</span>
           </h1>
           {
-            isSimilarEmail&&<button onClick={ AddBook} className="md:-mt-10  bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-700 duration-300 float-right ">
+          <button onClick={ AddBook} className="md:-mt-10  bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-700 duration-300 float-right ">
             Add Books
           </button>
           }
@@ -62,8 +76,8 @@ const isSimilarEmail = authUser.email.toLowerCase().includes("saifmalik10786@gma
           </Link>
         </div>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-4">
-          {book.map((item) => (
-            <Cards key={item.id} item={item} />
+          {book.map((item,key) => (
+            <Cards key={key} item={item} />
           ))}
         </div>
       </div>

@@ -2,20 +2,37 @@ import React, { useEffect, useState } from "react";
 import Cards from "./Cards";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import AddBooks from "./AddBooks";
+import { useAuth } from "../context/AuthProvider";
 function Course() {
+  const [open, setOpen] = useState(false);
   const [book, setBook] = useState([]);
+  
+
+  const getBook = async () => {
+    try {
+      const res = await axios.get("http://localhost:4001/book");
+      console.log(res.data);
+      setBook(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const getBook = async () => {
-      try {
-        const res = await axios.get("http://localhost:4001/book");
-        console.log(res.data);
-        setBook(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    
     getBook();
   }, []);
+
+
+const AddBook=()=>
+{
+  setOpen(true);
+  toast.success("you succesfully clicked add books")
+}
+const [authUser, setAuthUser] = useAuth();
+const isSimilarEmail = authUser.email.toLowerCase().includes("saifmalik10786@gmail.com");
   return (
     <>
       <div className=" max-w-screen-2xl container mx-auto md:px-20 px-4">
@@ -24,6 +41,11 @@ function Course() {
             We're delighted to have you{" "}
             <span className="text-pink-500"> Here! :)</span>
           </h1>
+          {
+            isSimilarEmail&&<button onClick={ AddBook} className="md:-mt-10  bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-700 duration-300 float-right ">
+            Add Books
+          </button>
+          }
           <p className="mt-12">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro,
             assumenda? Repellendus, iste corrupti? Tempore laudantium
@@ -45,6 +67,7 @@ function Course() {
           ))}
         </div>
       </div>
+      {open&&<AddBooks setOpen={setOpen} getBook={getBook}/>}
     </>
   );
 }

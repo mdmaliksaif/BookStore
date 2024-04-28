@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthProvider";
 function Login() {
   const {
     register,
@@ -25,7 +26,7 @@ function Login() {
           setTimeout(() => {
             window.location.reload();
             localStorage.setItem("Users", JSON.stringify(res.data.user));
-          }, 1000);
+          }, 500);
         }
       })
       .catch((err) => {
@@ -36,6 +37,8 @@ function Login() {
         }
       });
   };
+
+
   return (
     <div>
       <dialog id="my_modal_3" className="modal">

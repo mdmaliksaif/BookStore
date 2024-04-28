@@ -18,7 +18,7 @@ function Logout() {
       }, 3000);
     } catch (error) {
       toast.error("Error: " + error);
-      setTimeout(() => {}, 2000);
+      setTimeout(() => {}, 500);
     }
   };
   return (

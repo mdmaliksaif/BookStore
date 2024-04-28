@@ -36,6 +36,7 @@ function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  console.log(authUser)
   const navItems = (
     <>
       <li>
@@ -84,6 +85,7 @@ function Navbar() {
                   />
                 </svg>
               </div>
+              
               <ul
                 tabIndex={0}
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
@@ -91,8 +93,16 @@ function Navbar() {
                 {navItems}
               </ul>
             </div>
+            <div
+  className={` rounded-full m-2 bg-gray-200 font-bold text-2xl text-black  text-center p-2 flex items-center justify-center`}
+  style={{ width: '40px', height: '40px' }} // Set specific width and height
+>
+ {authUser?.fullname?.[0]?.toUpperCase()}
+</div>
             <a className=" text-2xl font-bold cursor-pointer">bookStore</a>
           </div>
+    
+
           <div className="navbar-end space-x-3">
             <div className="navbar-center hidden lg:flex">
               <ul className="menu menu-horizontal px-1">{navItems}</ul>

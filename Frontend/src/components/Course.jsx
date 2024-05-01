@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Cards from "./Cards";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import AddBooks from "./AddBooks";
 import { useAuth } from "../context/AuthProvider";
@@ -9,6 +9,7 @@ import { useBook } from "../context/BookProvider";
 // import { useSearch } from "../context/SearchProvider";
 function Course() {
   const [open, setOpen] = useState(false);
+
 
   // const [book, setBook] = useState([]);
   
@@ -30,9 +31,10 @@ function Course() {
 
   const [book,setBook,getBook] = useBook();
 
-  useEffect(() => {
-    getBook();
-  }, [localStorage.getItem("searchValue")]);
+  
+
+
+
 
   const [authUser, setAuthUser] = useAuth();
   const isSimilarEmail = authUser.email.toLowerCase().includes("saifmalik10786@gmail.com");

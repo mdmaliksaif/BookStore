@@ -3,6 +3,7 @@ import { useState } from "react";
 import Login from "./Login";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [authUser, setAuthUser] = useAuth();
@@ -42,14 +43,18 @@ function Navbar() {
     localStorage.setItem("searchValue", newValue);
   };
 
+  const navigate = useNavigate();
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      
+      window.location.reload();
 
-  
-const handleKeyDown = (event) => {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-  }
-};
+      navigate('/course'); // Navigate to "/course"
+    }
+  };
 
+ 
   console.log(authUser);
   const navItems = (
     <>
@@ -125,6 +130,7 @@ const handleKeyDown = (event) => {
                   type="text"
                   className="grow outline-none rounded-md bg-transparent dark:bg-transparent px-1 dark:bg-slate-900 dark:text-white"
                   placeholder="Search"
+                  value={localStorage.getItem("searchValue")}
                   onKeyDown={handleKeyDown} 
                   onChange={handleSearchInputChange}
                 />

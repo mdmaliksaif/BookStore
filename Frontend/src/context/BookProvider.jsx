@@ -16,10 +16,6 @@ export default function BookProvider({ children }) {
           console.log(error);
         }}
   
-    useEffect(() => {
-      
-      getBook();
-    }, []);
   return (
     <BookContext.Provider value={[book,setBook,getBook]}>
       {children}
